@@ -139,9 +139,11 @@
                                     </tfoot>
                                     <tbody>
                                     {% for user in users %}
+                                    {% if not user.name == "Admin" %}
                                         <tr>
                                             <td>{{ user.name }}</td>
                                         </tr>
+                                    {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
@@ -165,12 +167,14 @@
                                     </tfoot>
                                     <tbody>
                                     {% for user in users %}
+                                    {% if not user.name == "Admin" %}
                                         <tr>
                                             <td>{{ user.name }}</td>
                                             <td>{{ user.email }}</td>
                                             <td>{{ user.birthday }}</td>
                                             <td>{{ user.game }}</td>
                                         </tr>
+                                    {% endif %}
                                     {% endfor %}
                                     </tbody>
                                 </table>
