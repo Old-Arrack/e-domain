@@ -5,8 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+
         <title>Welcome to the E-Domain championship</title>
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+        <!--Favicon-->
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
@@ -23,7 +27,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('sign_up') }}">Sign Up</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('sign_up') }}">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url_for('sign_in') }}">Log In</a></li>
                     </ul>
                 </div>
@@ -54,6 +58,7 @@
                         <div class="p-5">
                             <h2 class="display-4">8 Ball Pool</h2>
                             <p>Play 8 Ball Pool, compete with friends and billiard legends in this multiplayer challenge to become the best in 8 ball pool! Play the hit Miniclip 8 Ball Pool game on your mobile and become a pro player of our league in this 3D free online pool competition.</p>
+                            <a class="btn btn-primary" target="_bank" href="https://play.google.com/store/apps/details?id=com.miniclip.eightballpool&hl=en&gl=US">Play Store</a>
                         </div>
                     </div>
                 </div>
@@ -70,6 +75,7 @@
                         <div class="p-5">
                             <h2 class="display-4">Basket Ball Stars</h2>
                             <p>Dribble, shoot, score, WIN in this competitive multiplayer Basketball game on mobile! Grab the ball and take on the world with BASKETBALL STARS.</p>
+                            <a class="btn btn-primary" target="_blank" href="https://play.google.com/store/apps/details?id=com.miniclip.basketballstars&hl=en&gl=US">Play Store</a>
                         </div>
                     </div>
                 </div>
@@ -86,6 +92,7 @@
                         <div class="p-5">
                             <h2 class="display-4">Carrom Pool</h2>
                             <p>Carrom Disc Pool is an easy-to-play multiplayer board game. Pot all your pieces before your opponent. Can you become the best at this Carrom Board game?</p>
+                            <a class="btn btn-primary" target="_blank" href="https://play.google.com/store/apps/details?id=com.miniclip.carrom&hl=en&gl=US">Play Store</a>
                         </div>
                     </div>
                 </div>

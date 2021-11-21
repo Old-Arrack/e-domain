@@ -24,7 +24,7 @@
 
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name" required/>
+                                <input type="text" name="name" id="name" placeholder="Your Name" required autofocus/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -34,9 +34,19 @@
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="pass" id="pass" placeholder="Password" required/>
                             </div>
+
                             <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password" required/>
+                                  <label for="pass"><i class="fas fa-birthday-cake"></i></label>
+                                  <input type="date" name="birthday" style="color: #999;" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass" style="z-index: 1;"><i class="fas fa-gamepad"></i></label>
+                                <select class="dropdown" name="games" required>
+                                    <option selected disabled>Select game</option>
+                                    <option value="8 Ball Pool">8 Ball Pool</option>
+                                    <option value="Carom Pool">Carom Pool</option>
+                                    <option value="Basketball Stars">Basketball Stars</option>
+                                </select>
                             </div>
                             <div class="form-group form-button">
                                 <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>

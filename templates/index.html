@@ -6,10 +6,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+
         <title>Dashboard</title>
+
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -23,7 +30,6 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ url_for('settings') }}">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
                         <li><a class="dropdown-item" href="{{ url_for('log_out') }}">Logout</a></li>
                     </ul>
@@ -119,6 +125,7 @@
                                 Users
                             </div>
                             <div class="card-body">
+                                {% if not current_user.name == "Admin" %}
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
@@ -138,6 +145,36 @@
                                     {% endfor %}
                                     </tbody>
                                 </table>
+                                {% else %}
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Birthday</th>
+                                            <th>Game</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Birthday</th>
+                                            <th>Game</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    {% for user in users %}
+                                        <tr>
+                                            <td>{{ user.name }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.birthday }}</td>
+                                            <td>{{ user.game }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

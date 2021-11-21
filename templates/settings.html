@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %} User Settings {% endblock %}
+
+{% block content %}
+
+<section id="settings">
+    <h1>Settings</h1>
+    <br>
+    <div class="setting-data">
+
+        <div class="row">
+            <img src="{{ current_user.email | gravatar }}">
+            <div class="img-data">
+                <h4>{{ current_user.name }}</h4>
+                <p>{{ current_user.email }}</p>
+            </div>
+        </div>
+        <hr>
+
+        <div class="settings-content">
+
+            <form name="details" action="{{ url_for('settings') }}" method="POST">
+                <h4>Account Details</h4>
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>Display Name</p>
+                        <input type="text" name="name" value="{{ current_user.name }}" required>
+                    </div>
+                    <div class="col-lg-6">
+                        <p>Email</p>
+                        <input type="text" name="email" value="{{ current_user.email }}" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p>Birthday</p>
+                        <input type="date" name="bday" value="{{ current_user.birthday }}" required>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                        <p>Game Selected</p>
+                        <select name="game" class="select-game">
+                            {% for option in all_games %}
+                                {% if option == current_user.game %}
+                                    <option selected value="{{ option }}">{{ current_user.game }}</option>
+                                {% else %}
+                                    <option value="{{ option }}">{{ option }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        </div>
+                    </div>
+                </div>
+
+                <button name="details" type="submit" class="btn btn-primary float-right">Save Changes</button>
+                <br>
+                <br>
+            </form>
+            <hr>
+
+            <form action="{{ url_for('settings') }}" method="POST">
+                <h4>Account Details</h4>
+                <br>
+
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        {% if "successfully" in message %}
+                            <p style="font-style: italic; color: green;">{{ message }}</p>
+                        {% else %}
+                            <p style="font-style: italic; color: red;">{{ message }}</p>
+                        {% endif %}
+                            <br>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <p>New Password</p>
+                <input name="new_pass" type="password" required>
+                <p>Old Password</p>
+                <input name="old_pass" type="password" required>
+                <p>Confirm Password</p>
+                <input name="confirm_pass" type="password" required>
+
+                <button name="pass-details" type="submit" class="btn btn-primary float-right">Save Changes</button>
+                <br>
+                <br>
+            </form>
+
+            <hr>
+
+            <form action="{{ url_for('settings') }}" method="POST">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Delete Account</h4>
+                        <p>This will permanently delete your account</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#exampleModal">
+                          Delete account...
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Account</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <h6>Are you sure you are going to permanently delete this account?</h6>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="submit" class="btn btn-danger">Confirm</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

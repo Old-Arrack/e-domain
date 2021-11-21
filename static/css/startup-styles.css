@@ -265,7 +265,10 @@ body {
   overflow: hidden; }
 
 .signup-image {
-  margin: 0 55px; }
+  position: relative;
+  top: 2rem;
+  margin: 0 55px;
+}
 
 .form-title {
   margin-bottom: 33px; }
@@ -600,4 +603,62 @@ label.valid {
     padding: 2rem 0 2rem 0;
     position: relative;
     text-align: center;
+}
+
+/* SignUp Selection */
+.dropdown {
+    border-style: none none solid none;
+    z-index: 0;
+    padding: 0 10rem 0 2rem;
+    border-radius: 2px;
+}
+
+/* Settings */
+#settings {
+    margin: 2rem 2rem 2rem 2rem;
+}
+
+#settings hr {
+    background-color: #999;
+    margin: 2rem 0 3rem 0;
+}
+
+.setting-data {
+    padding-left: 3rem;
+}
+
+.img-data {
+    padding-left: 2rem;
+    padding-top: 1rem;
+}
+
+.settings-content p {
+    color: black;
+}
+.settings-content input {
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color:transparent;
+    padding: 8px 0 8px 1rem;
+    margin-bottom: 2rem;
+    font-size: 150%;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.settings-content .form-group {
+    padding-right: 2rem;
+}
+.settings-content button {
+    margin: 1rem 0 0 3rem;
+}
+
+.select-game {
+    border: 1px solid #999;
+    border-radius: 5px;
+    background-color:transparent;
+    padding: 8px 0 8px 1rem;
+    position: relative;
+    width: 104.5%;
+    font-size: 150%;
 }

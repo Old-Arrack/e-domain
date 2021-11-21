@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.exceptions import BadRequestKeyError
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_gravatar import Gravatar
 import os
@@ -36,10 +37,12 @@ class Users(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(250), nullable=False, unique=True)
     email = db.Column(db.String(250), nullable=False, unique=True)
-    password = db.Column(db.String(500), nullable=False)
+    birthday = db.Column(db.String(500), nullable=False)
+    game = db.Column(db.String(500), nullable=False)
+    password = db.Column(db.String(500), nullable=True)
 
 
-# db.create_all()
+db.create_all()
 
 
 @login_manager.user_loader
@@ -60,11 +63,13 @@ def sign_up():
     if request.method == "POST":
         name = request.form["name"]
         email = request.form["email"]
+        birthday = request.form["birthday"]
         password = request.form["pass"]
-        re_password = request.form["re_pass"]
 
-        if not password == re_password:
-            flash("Passwords doesn't match.")
+        try:
+            game = request.form["games"]
+        except BadRequestKeyError:
+            flash("Select a game")
             return redirect(url_for("sign_up"))
 
         all_users = db.session.query(Users).all()
@@ -87,6 +92,8 @@ def sign_up():
             new_user = Users(
                 name=name,
                 email=email,
+                birthday=birthday,
+                game=game,
                 password=generate_password_hash(
                     password=password,
                     salt_length=8
@@ -150,9 +157,62 @@ def welcome():
     return render_template("welcome.html")
 
 
-@app.route("/settings")
+@app.route("/settings", methods=["POST", "GET"])
+@login_required
 def settings():
-    return render_template("settings.html")
+    if request.method == "POST":
+
+        user = current_user
+
+        if "details" in request.form:
+            user.name = request.form["name"]
+            user.email = request.form["email"]
+            user.birthday = request.form["bday"]
+            user.game = request.form["game"]
+
+            db.session.commit()
+
+            return redirect(url_for("settings"))
+
+        elif "pass-details" in request.form:
+
+            new_pass = request.form["new_pass"]
+            old_pass = request.form["old_pass"]
+            confirm_pass = request.form["confirm_pass"]
+
+            correct_password = check_password_hash(
+                pwhash=user.password,
+                password=old_pass,
+            )
+            if correct_password:
+                if new_pass == confirm_pass:
+                    user.password = generate_password_hash(
+                        password=new_pass,
+                        salt_length=8
+                    )
+
+                    db.session.commit()
+
+                    flash("Password changed successfully!")
+                    redirect(url_for("settings"))
+                else:
+                    flash("Passwords doesn't match")
+            else:
+                flash("Wrong password")
+                return redirect(url_for("settings"))
+
+        else:
+            db.session.delete(user)
+            db.session.commit()
+
+            return redirect(url_for("home"))
+
+    return render_template("settings.html",
+                           all_games=["8 Ball Pool",
+                                      "Basketball Stars",
+                                      "Carom Pool"
+                                      ],
+                           )
 
 
 if __name__ == "__main__":
