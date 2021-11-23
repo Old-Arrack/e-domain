@@ -11381,3 +11381,10 @@ header.masthead .bg-circle-4 {
     font-size: 4rem;
   }
 }
+
+@media (max-width: 992px) {
+  header.masthead .masthead-content .masthead-heading {
+    font-size: 2rem;
+  }
+
+}
