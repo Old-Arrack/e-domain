@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError
@@ -213,6 +213,35 @@ def settings():
                                       "Carom Pool"
                                       ],
                            )
+
+
+def is_admin(function):
+    def wrapper(*args, **kwargs):
+        if current_user.name == "Admin":
+            return function(*args, **kwargs)
+        else:
+            return abort(403)
+    return wrapper
+
+
+@app.route("/delete-user", methods=["GET", "POST"])
+@login_required
+@is_admin
+def delete():
+    email = request.args.get("email")
+    code = request.args.get("code")
+
+    if code == os.environ.get("CODE"):
+        user = Users.query.filter_by(email=email).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+        else:
+            return "This email doesn't exist."
+    else:
+        return "Invalid confirmation code"
+
+    return "User deleted..."
 
 
 if __name__ == "__main__":
