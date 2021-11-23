@@ -662,3 +662,8 @@ label.valid {
     width: 104.5%;
     font-size: 150%;
 }
+
+.login-block {
+    position: relative;
+    left: 12rem;
+}

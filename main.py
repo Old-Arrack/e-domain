@@ -174,7 +174,7 @@ def settings():
 
             return redirect(url_for("settings"))
 
-        elif "pass-details" in request.form:
+        else:
 
             new_pass = request.form["new_pass"]
             old_pass = request.form["old_pass"]
@@ -194,18 +194,13 @@ def settings():
                     db.session.commit()
 
                     flash("Password changed successfully!")
-                    redirect(url_for("settings"))
+                    return redirect(url_for("settings"))
                 else:
                     flash("Passwords doesn't match")
+                    return redirect(url_for("settings"))
             else:
                 flash("Wrong password")
                 return redirect(url_for("settings"))
-
-        else:
-            db.session.delete(user)
-            db.session.commit()
-
-            return redirect(url_for("home"))
 
     return render_template("settings.html",
                            all_games=["8 Ball Pool",
