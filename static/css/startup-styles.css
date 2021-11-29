@@ -667,3 +667,25 @@ label.valid {
     position: relative;
     left: 12rem;
 }
+
+.date {
+    padding-right: 0;
+}
+
+.password-parent {
+    position: relative;
+}
+
+.lock {
+    position: absolute;
+    z-index: 1;
+}
+
+.eye {
+    position: absolute;
+    right: 0;
+    top: 1rem;
+}
+.eye:hover {
+    cursor: pointer;
+}

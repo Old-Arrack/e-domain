@@ -24,3 +24,20 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+function show(pass="pass"){
+    var invisible = "fas fa-eye-slash eye";
+    var visible = "fas fa-eye eye"
+
+    var class_name = document.getElementById("pass-icon").className;
+
+    if (invisible == class_name) {
+        document.getElementById("pass-icon").className = visible;
+        document.getElementById(pass).type = "text";
+    }
+    else {
+        document.getElementById("pass-icon").className = invisible;
+        document.getElementById(pass).type = "password";
+    }
+
+}
