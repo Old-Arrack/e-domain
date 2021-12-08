@@ -20,6 +20,7 @@ Bootstrap(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+login_attempts = 0
 
 gravatar = Gravatar(
                     app,
@@ -113,6 +114,7 @@ def sign_up():
 
 @app.route("/sign-in", methods=["GET", "POST"])
 def sign_in():
+    global login_attempts
 
     if request.method == "POST":
         email = request.form["email"]
@@ -130,6 +132,7 @@ def sign_in():
                 return redirect(url_for("dashboard"))
             else:
                 flash("Wrong password.")
+                login_attempts += 1
                 return redirect(url_for("sign_in"))
         else:
             flash("This is email doesn't exist.")
@@ -237,6 +240,24 @@ def delete():
         return "Invalid confirmation code"
 
     return "User deleted..."
+
+
+@app.route("/count")
+def count_users():
+    ball_pool, basket_ball, carom = 0, 0, 0
+
+    users = db.session.query(Users).all()
+    for u in users:
+        if u.game == "8 Ball Pool":
+            ball_pool += 1
+        elif u.game == "Carom Pool":
+            carom += 1
+        else:
+            basket_ball += 1
+
+    return f"<p>8 Ball Pool = {ball_pool}</p>" \
+           f"<p>Basket Ball Stars = {basket_ball}</p>" \
+           f"<p>Carom Pool = {carom}</p>"
 
 
 if __name__ == "__main__":
