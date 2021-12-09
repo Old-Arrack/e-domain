@@ -261,18 +261,36 @@ def count_users():
 
 
 @app.route("/list")
+@login_required
 def count_lists():
     user = db.session.query(Users).all()
 
-    names = [u.name for u in user]
-    emails = [u.email for u in user]
-    birthday = [u.birthday for u in user]
-    game = [u.game for u in user]
+    pool_name, pool_game, pool_contact, pool_bday = [], [], [], []
+    carom_name, carom_game, carom_contact, carom_bday = [], [], [], []
+    ball_name, ball_game, ball_contact, ball_bday = [], [], [], []
 
-    return f"{names}<br>" \
-           f"{emails}<br>" \
-           f"{birthday}<br>" \
-           f"{game}<br>"
+    for u in user:
+        if u.game == "8 Ball Pool":
+            pool_name.append(u.name)
+            pool_game.append(u.game)
+            pool_contact.append(u.email)
+            pool_bday.append(u.birthday)
+        elif u.game == "Carom Pool":
+            carom_name.append(u.name)
+            carom_game.append(u.game)
+            carom_contact.append(u.email)
+            carom_bday.append(u.birthday)
+        else:
+            ball_name.append(u.name)
+            ball_game.append(u.game)
+            ball_contact.append(u.email)
+            ball_bday.append(u.birthday)
+
+    pool = [pool_game, pool_name, pool_contact, pool_bday]
+    carom = [carom_game, carom_name, carom_contact, carom_bday]
+    ball = [ball_game, ball_name, ball_contact, ball_bday]
+
+    return render_template("event_data.html", pool=pool, carom=carom, ball=ball)
 
 
 if __name__ == "__main__":
