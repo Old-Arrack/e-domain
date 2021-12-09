@@ -260,5 +260,20 @@ def count_users():
            f"<p>Carom Pool = {carom}</p>"
 
 
+@app.route("/list")
+def count_lists():
+    user = db.session.query(Users).all()
+
+    names = [u.name for u in user]
+    emails = [u.email for u in user]
+    birthday = [u.birthday for u in user]
+    game = [u.game for u in user]
+
+    return f"{names}<br>" \
+           f"{emails}<br>" \
+           f"{birthday}<br>" \
+           f"{game}<br>"
+
+
 if __name__ == "__main__":
     app.run(debug=True)
