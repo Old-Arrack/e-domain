@@ -183,6 +183,22 @@
                         </div>
                     </div>
                 </main>
+
+                <!--Comments-->
+                <section id="Comments">
+                    {% if length == 1%}
+                    <h3>{{ length }} comment</h3>
+                    {% elif length > 0 %}
+                    <h3>{{ length }} comments</h3>
+                    {% endif %}
+                    {% for key, value in comments.items() %}
+                    <div class="comment">
+                        <img class="comment-img" src="{{ value['comment'] | gravatar }}">
+                        <p class="comment-text">{{ value["comment"] }}</p>
+                    </div>
+                    {% endfor %}
+                </section>
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="copyright text-muted">Copyright &copy; E-Domain Championship 2021</div>
                 </footer>

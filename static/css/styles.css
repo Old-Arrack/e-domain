@@ -11704,6 +11704,41 @@ body {
     margin-right: 80rem;
 }
 
+/* Comments section */
+#Comments {
+   margin-left: 2rem;
+   margin-bottom: 2rem;
+}
+#Comments h3 {
+    font-family: "Verdana";
+    padding-bottom: 1rem;
+}
+
+.comment {
+    padding-left: 2rem;
+}
+@media (max-width: 720.8px){
+    .comment {
+        padding: 0 0 0 0;
+    }
+}
+
+.comment-text {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px 1rem 1rem 3px;
+    width: 70%;
+    position: relative;
+    left: 4rem;
+    bottom: 2.5rem;
+}
+
+.comment-img {
+    width: 3rem;
+    border-radius: 50%;
+}
+
+/* Footer */
 .copyright {
     text-align: center;
     font-size: 80%;

@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.exceptions import BadRequestKeyError
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_gravatar import Gravatar
+import json
 import os
 
 app = Flask(__name__)
@@ -43,7 +44,14 @@ class Users(UserMixin, db.Model):
     password = db.Column(db.String(500), nullable=True)
 
 
-# db.create_all()
+class Comments(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(250), nullable=False, unique=True)
+    comment = db.Column(db.String(250), nullable=False, unique=True)
+    rate = db.Column(db.Integer, nullable=False)
+
+
+db.create_all()
 
 
 @login_manager.user_loader
@@ -152,7 +160,12 @@ def log_out():
 @login_required
 def dashboard():
     all_users = db.session.query(Users).all()
-    return render_template("index.html", users=all_users)
+    try:
+        with open("survey.json") as file:
+            data = json.load(file)
+    except json.decoder.JSONDecodeError:
+        data = {}
+    return render_template("index.html", users=all_users, comments=data, length=len(data))
 
 
 @app.route("/welcome")
@@ -258,6 +271,44 @@ def count_users():
     return f"<p>8 Ball Pool = {ball_pool}</p>" \
            f"<p>Basket Ball Stars = {basket_ball}</p>" \
            f"<p>Carom Pool = {carom}</p>"
+
+
+@app.route("/survey", methods=["GET", "POST"])
+def survey():
+    if request.method == "POST":
+        rate = request.form["rate"]
+        comment = request.form["comment"]
+
+        if not rate:
+            flash("Please select a rating from above.")
+            return redirect(url_for("survey"))
+        elif not comment:
+            flash("Please enter a comment.")
+            return redirect(url_for("survey"))
+
+        try:
+            with open("survey.json") as file:
+                data = json.load(file)
+
+            data[f"person{len(data)+1}"] = {
+                "comment": comment,
+                "rate": rate,
+            }
+        except json.decoder.JSONDecodeError:
+            data = {
+                "Person1": {
+                    "comment": comment,
+                    "rate": rate,
+                }
+            }
+
+        with open("survey.json", mode="w") as file:
+            json.dump(data, file)
+
+        flash("Thank you for your feedback!")
+        return render_template("survey.html")
+
+    return render_template("survey.html")
 
 
 # @app.route("/list")
