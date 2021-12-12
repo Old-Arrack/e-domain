@@ -13,6 +13,8 @@
                     <div class="signup-form">
                         <h2 class="form-title">Sign up</h2>
 
+                        <h3 class="signup-closed">Registration is now closed</h3>
+
                         <form action="{{ url_for('sign_up') }}" method="POST" class="register-form" id="register-form">
 
                             {% with message = get_flashed_messages() %}
@@ -24,27 +26,27 @@
 
                             <div class="form-group">
                                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name" required autofocus/>
+                                <input type="text" name="name" id="name" placeholder="Your Name" disabled autofocus/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="fas fa-phone"></i></label>
-                                <input type="text" name="email" id="email" placeholder="Your Contact number" required/>
+                                <input type="text" name="email" id="email" placeholder="Your Contact number" disabled/>
                             </div>
                             <div class="form-group">
                                 <label class="lock" for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <div class="password-parent">
                                     <i class="fas fa-eye-slash eye" onclick="show()" id="pass-icon"></i>
-                                    <input type="password" name="pass" id="pass" placeholder="Password" required/>
+                                    <input type="password" name="pass" id="pass" placeholder="Password" disabled/>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                   <label for="pass"><i class="fas fa-birthday-cake"></i></label>
-                                  <input type="date" name="birthday" class="date" required>
+                                  <input type="date" name="birthday" class="date" disabled>
                             </div>
                             <div class="form-group">
                                 <label for="pass" style="z-index: 1;"><i class="fas fa-gamepad"></i></label>
-                                <select class="dropdown" name="games" required>
+                                <select class="dropdown" name="games" disabled>
                                     <option selected disabled>Select game</option>
                                     <option value="8 Ball Pool">8 Ball Pool</option>
                                     <option value="Carom Pool">Carom Pool</option>
@@ -52,7 +54,7 @@
                                 </select>
                             </div>
                             <div class="form-group form-button">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
+                                <input disabled type="submit" name="signup" id="signup" class="form-submit" value="Register"/>
                             </div>
                         </form>
                     </div>

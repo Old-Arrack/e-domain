@@ -689,3 +689,9 @@ label.valid {
 .eye:hover {
     cursor: pointer;
 }
+
+.signup-closed {
+    font-size: 1.5rem;
+    color: red;
+    padding-bottom: 1rem;
+}
