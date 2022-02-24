@@ -239,18 +239,9 @@ def is_admin(function):
 @login_required
 @is_admin
 def delete():
-    email = request.args.get("email")
-    code = request.args.get("code")
 
-    if code == os.environ.get("CODE"):
-        user = Users.query.filter_by(email=email).first()
-        if user:
-            db.session.delete(user)
-            db.session.commit()
-        else:
-            return "This email doesn't exist."
-    else:
-        return "Invalid confirmation code"
+    db.session.query(Users).delete()
+    db.session.commit()
 
     return "User deleted..."
 
